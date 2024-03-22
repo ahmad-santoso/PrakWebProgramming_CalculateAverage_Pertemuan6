@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas P6 - Calculate Averang - Praktikum Web Programming</title>
+    <style>
+        .popup {
+            position: fixed;
+            font-size: 14px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, #ffffff 60%, #cccccc 40%);
+            padding: 10px 40px 10px 40px;
+            border: 1px solid #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            text-align: center;
+        }
+        .popup button {
+            font-size: 12px;
+            background-color: #ffffff;
+            padding: 0 20px 0 20px;
+            border: 1px;
+            cursor: pointer;
+            border: 1px solid #0220ff;
+            margin-top: 20px;
+            margin-left: 80px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Calculate average</h1>
+        <h3>Enter the following information and then press the AVERAGE button to calculate your grade.</h3>
+        <form>
+            <h3 style="margin-top: 0; margin-bottom: 0;">To clear the data fields, press the CLEAR button.</h3>
+            <h3 style="margin-top: 0; margin-bottom: 0;"><label for="final_exam">Enter Final Exam Grade:</label>
+                <input type="text" id="final_exam" name="final_exam" style="width: 50px;">
+            </h3>
+            <h3 style="margin-top: 0; margin-bottom: 0;"><label for="homework">Enter Homework Grade:</label>
+                <input type="text" id="homework" name="homework" style="width: 50px;">
+            </h3>
+            <h3 style="margin-top: 0; margin-bottom: 50px;"><label for="projects">Enter Projects Grade:</label>
+                <input type="text" id="projects" name="projects" style="width: 50px;">
+            </h3>
+        </form>
+        <input type="submit" value="AVERAGE" id="averageButton">
+        <input type="submit" value="CLEAR" id="clearButton">
+        <h3><label for="average">Your Average is:</label><input type="text" id="averageTotal" name="average" style="width: 50px;"></h3>
+    </main>
+
+    <script>
+        document.getElementById('averageButton').addEventListener('click', function() {
+            // Mengambil nilai dari input
+            var finalExamGrade = parseFloat(document.getElementById('final_exam').value);
+            var homeworkGrade = parseFloat(document.getElementById('homework').value);
+            var projectsGrade = parseFloat(document.getElementById('projects').value);
+
+            // Menghitung rata-rata
+            var average = (finalExamGrade * 0.5) + (homeworkGrade * 0.2) + (projectsGrade * 0.3);
+
+            // Menampilkan hasil dalam input
+            document.getElementById('averageTotal').value = average.toFixed(2);
+
+            // Menampilkan hasil dalam popup
+            var popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.innerHTML = "<p style='margin-bottom: 20px;'>Your average is: " + average.toFixed(2) + "</p><button onclick='closePopup()'>OK</button>";
+            document.body.appendChild(popup);
+        });
+
+        function closePopup() {
+            var popup = document.querySelector('.popup');
+            popup.parentNode.removeChild(popup);
+        }
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            // Membersihkan nilai input
+            document.getElementById('final_exam').value = "";
+            document.getElementById('homework').value = "";
+            document.getElementById('projects').value = "";
+            document.getElementById('averageTotal').value = "";
+        });
+    </script>
+</body>
+</html>
